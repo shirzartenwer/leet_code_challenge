@@ -26,11 +26,16 @@ Return an array (of length num_people and sum candies) that represents the final
         
 
 # in each round, the consumed candies are n*(n+1)/2, n = len(num_people)
+# -> no this is not right
                 
                 
             
 
 class Solution:
     def distributeCandies(self, candies: int, num_people: int) -> List[int]:
-        expected_consumption = num_people * (num_people - 1) / 2 
+        expected_consumption = num_people * (num_people - 1) / 2
+        turn = 0
+        while left_over_candies > 0:
+            candies_consumption = turn
+
       
