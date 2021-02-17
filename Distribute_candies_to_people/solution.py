@@ -34,8 +34,17 @@ Return an array (of length num_people and sum candies) that represents the final
 class Solution:
     def distributeCandies(self, candies: int, num_people: int) -> List[int]:
         expected_consumption = num_people * (num_people - 1) / 2
-        turn = 0
+        turn = 1
         while left_over_candies > 0:
-            candies_consumption = turn
+            expected_consumption = num_people * (num_people - 1) / 2 + (turn -1) * num_people**num_people
+            left_over_candies = candies - expected_consumption
+            if left_over_candies <=0:
+                break
+            else:
+                turn = turn + 1
+        
+        
+        
 
-      
+
+    
