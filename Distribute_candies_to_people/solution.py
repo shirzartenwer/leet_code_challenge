@@ -13,22 +13,24 @@ from typing import *
 
 class Solution:
     def distributeCandies(self, candies: int, num_people: int) -> List[int]:
-        expected_consumption = num_people * (num_people - 1) / 2
         turn = 1
-        base = num_people * (turn - 1)
         left_over_candies = candies
         stopping_criteria = candies
         result = [0]*num_people
         while stopping_criteria > 0:
             for people_index in range(num_people):
-                stopping_criteria = left_over_candies - (people_index+1+base)
-                if left_over_candies > (people_index+1+base):
+                base = num_people * (turn - 1)
+                if left_over_candies >= (people_index+1+base):
                     result[people_index] += people_index+1+base
+                    stopping_criteria = left_over_candies - (people_index+1+base)
                 else: 
                     result[people_index] += left_over_candies
+                    stopping_criteria = 0
+                    break
                 left_over_candies = left_over_candies - result[people_index]
-            turn +=1
-            base = num_people * (turn - 1)      
+                if left_over_candies <=0:
+                    break
+            turn +=1    
         return result
         
 print(Solution.distributeCandies(Solution, 10, 3))
