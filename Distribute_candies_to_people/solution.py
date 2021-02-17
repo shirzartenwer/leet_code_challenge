@@ -35,7 +35,12 @@ class Solution:
     def distributeCandies(self, candies: int, num_people: int) -> List[int]:
         expected_consumption = num_people * (num_people - 1) / 2
         turn = 1
+        base = num_people * (turn - 1)
+        List = []
         while left_over_candies > 0:
+            for people_index in range(num_people):
+                List[people_index] += people_index+1+base
+            consumption = sum(List)
             expected_consumption = num_people * (num_people - 1) / 2 + (turn -1) * num_people**num_people
             left_over_candies = candies - expected_consumption
             if left_over_candies <=0:
