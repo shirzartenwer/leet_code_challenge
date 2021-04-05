@@ -40,9 +40,14 @@ from typing import *
 
     
 class Solution:
-    def distributeCandies(self, candyType: List[int]) -> int:
-        from collections import defaultdict
-        d = defaultdict(int)
-        for i in candyType:
-            d[i] = 0
-        return min(len(candyType) // 2, len(d))
+    def distributeCandies(self, candies: int, num_people: int) -> List[int]:
+        res = [0]*num_people
+        c = 1
+        i = 0
+        while c <= candies:
+            res[i % num_people] += c
+            i += 1
+            candies -= c
+            c += 1
+        res[i % num_people] += candies
+        return res
