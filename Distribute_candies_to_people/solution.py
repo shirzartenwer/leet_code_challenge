@@ -11,31 +11,38 @@ Return an array (of length num_people and sum candies) that represents the final
 
 from typing import *         
 
-class Solution:
-    def distributeCandies(self, candies: int, num_people: int) -> List[int]:
-        turn = 1
-        left_over_candies = candies
-        stopping_criteria = candies
-        result = [0]*num_people
-        while stopping_criteria > 0:
-            for people_index in range(num_people):
-                base = num_people * (turn - 1)
-                if left_over_candies >= (people_index+1+base):
-                    result[people_index] += people_index+1+base
-                    stopping_criteria = left_over_candies - (people_index+1+base)
-                else: 
-                    result[people_index] += left_over_candies
-                    stopping_criteria = 0
-                    break
-                left_over_candies = left_over_candies - result[people_index]
-                if left_over_candies <=0:
-                    break
-            turn +=1    
-        return result
+# class Solution:
+#     def distributeCandies(self, candies: int, num_people: int) -> List[int]:
+#         turn = 1
+#         left_over_candies = candies
+#         stopping_criteria = candies
+#         result = [0]*num_people
+#         while stopping_criteria > 0:
+#             for people_index in range(num_people):
+#                 base = num_people * (turn - 1)
+#                 if left_over_candies >= (people_index+1+base):
+#                     result[people_index] += people_index+1+base
+#                     stopping_criteria = left_over_candies - (people_index+1+base)
+#                 else: 
+#                     result[people_index] += left_over_candies
+#                     stopping_criteria = 0
+#                     break
+#                 left_over_candies = left_over_candies - result[people_index]
+#                 if left_over_candies <=0:
+#                     break
+#             turn +=1    
+#         return result
         
-print(Solution.distributeCandies(Solution, 10, 3))
+# print(Solution.distributeCandies(Solution, 10, 3))
         
         
 
 
     
+class Solution:
+    def distributeCandies(self, candyType: List[int]) -> int:
+        from collections import defaultdict
+        d = defaultdict(int)
+        for i in candyType:
+            d[i] = 0
+        return min(len(candyType) // 2, len(d))
