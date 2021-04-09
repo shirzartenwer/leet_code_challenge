@@ -1,7 +1,9 @@
 '''You have a list of points in the plane. Return the area 
 of the largest triangle that can be formed by any 3 of the points.'''
 
-# https://leetcode.com/problems/largest-triangle-area/
+# https://leetcode.com/problems/largest-triangle-area/'
+
+from typing import List
 
 # This is my soluation, but apparently my formula for calculating area is 
 # not general enough. Check the solution below
