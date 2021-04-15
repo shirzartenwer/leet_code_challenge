@@ -2,16 +2,19 @@
 class SubrectangleQueries:
 
     def __init__(self, rectangle: List[List[int]]):
-        pass
+        self.rectangle = rectangle
         
 
     def updateSubrectangle(self, row1: int, col1: int, row2: int, col2: int, newValue: int) -> None:
-        pass
+        for index in range(row1, row2+1):
+            for index_j in range(col1, col2+1):
+                self.rectangle[index][index_j] = newValue
         
 
     def getValue(self, row: int, col: int) -> int:
-        pass
+        return self.rectangle[row][col]
         
+
 
 
 # Your SubrectangleQueries object will be instantiated and called as such:
