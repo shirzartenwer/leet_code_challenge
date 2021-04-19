@@ -9,4 +9,4 @@ jobs:
         uses: "alstr/todo-to-issue-action@v2.4.1"
         id: "todo"
         with:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.GH_TOKEN }}
