@@ -2,7 +2,7 @@
 
 from typing import * 
 
-#TODO: check why this code is not working
+# TODO: check why this code is not working
 class Solution:
     def reverseVowels(self, s: str) -> str:
         vowels_set = ['a', 'e', 'i','o', 'u', 
