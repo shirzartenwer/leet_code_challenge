@@ -16,6 +16,8 @@ class Solution:
                     exchange = str_list[i]
                     str_list[i] = str_list[j]
                     str_list[j] = exchange
+                    i +=1
+                    j -=1
                 else:
                     j -=1
                     continue
@@ -32,3 +34,7 @@ class Solution:
         return str
                 
                 
+if __name__ == "__main__":
+    solution = Solution()
+    print(solution.reverseVowels("hello"))
+    
