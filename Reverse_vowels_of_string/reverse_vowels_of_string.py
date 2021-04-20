@@ -2,7 +2,7 @@
 
 from typing import * 
 
-# TODO: check why this code is not working
+# Turned out I forgot to move the pointers when two character actually swaped.
 class Solution:
     def reverseVowels(self, s: str) -> str:
         vowels_set = ['a', 'e', 'i','o', 'u', 
