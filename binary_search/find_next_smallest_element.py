@@ -8,22 +8,18 @@ class Solution:
     
     
 # I was being dogmatic and thinking about binary search. But the soluttion is way easier.    
-class MySolution:
+class Solution:
     def nextGreatestLetter(self, letters: List[str], target: str) -> str:
-        if target > letters[:-1]:
+        if target >= letters[-1]:
             return letters[0]
-        elif target < letters[0]:
+        if target < letters[0]:
             return letters[0]
-        else:
-            return self.find(0, len(letters)-1, target)
-        
-    def find(self, L, i, j, target):
-        if L[j] < L[i]:
-            return L[j]
-        m = (L[i]+L[j])//2
-        if L[m] == target:
-            return L[m]
-        elif L[m] > target:
-            return self.find(L[i], L[m-1], target)
-        else:
-            return self.find(L[m+1], L[j], target)
+        low = 0
+        high = len(letters)-1
+        while low < high:
+            m = int(low+ (high-low)/2)
+            if letters[m] <= target:
+                low = m+1
+            else:
+                high = m
+        return letters[low]
