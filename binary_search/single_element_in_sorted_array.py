@@ -43,5 +43,7 @@ class Solution:
                 low = middle_index + 1
             else:
                 high = middle_index
-        return nums[low]  #TODO: understand why we return the lower one
+        return nums[low]  
     
+    #TODO: understand why we return the lower one
+    # Because we are moving the lower one to collide with the higher one
