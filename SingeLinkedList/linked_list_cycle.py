@@ -27,8 +27,26 @@ class LinkedList:
             self.head = temp_node
         return self
     
-    # TODO: implement insert at tail method
-        
+    def insert_at_tail(self, value: float):
+        current = self.get_head()
+        while current.next is not None:
+            current = current.next
+        current.next = Node(value)
+        return self
+    
+    
+    def search(self, dt):
+        if self.is_empty():
+            print("List is Empty")
+            return None
+        temp = self.head_node
+        while(temp is not None):
+            if(temp.data is dt):
+                return temp
+            temp = temp.next_element
+
+        print(dt, " is not in List!")
+        return None
         
 
 class Solution:
