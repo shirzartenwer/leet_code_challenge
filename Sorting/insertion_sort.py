@@ -3,7 +3,6 @@ def insertion_sort(least: List):
     for i in range(1, len(least)):
         j = i-1
         min_element = least[i]
-        # TODO: understand this while condition and the content
         while j >=0 and least[j] > min_element:
             least[j+1]= least[j]
             j -=1
