@@ -4,31 +4,36 @@ from typing import List
 
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        left = 0
-        right = len(nums) -1
-        list_index = []
-        while left <= right:
- 
-            mid = left + (right - left) // 2
-
-            # Check if key is present at mid
-            if nums[mid] == target:
-                list_index.append(mid)
-                if nums[mid-1] == target:
-                    list_index.append(mid-1)
-                if nums[mid+1] == target:
-                    list_index.append(mid+1)
-                return sorted(list_index)
-
-            # If key is greater, ignore left half
-            elif nums[mid] < target:
-                left = mid + 1
-
-            # If key is smaller, ignore right half
+        if not nums:
+            return [-1,-1]
+        l = 0
+        r = len(nums) - 1
+        # The first part is to find the left bounding index of the number
+        while l<r:
+            mid = (l+r) // 2
+            if nums[mid] < target:
+                l = mid +1
+            elif nums[mid] == target:
+                r = mid 
             else:
-                right = mid - 1
+                r = mid - 1
+        
+        if nums[l] != target:
+            return [-1,-1]
+        else:
+            # The second part is looking for the right index of the number
+            end = start = l
+            r = len(nums) - 1
+            while l<=r:
+                
+                mid = (l+r) // 2
+                if nums[mid] == target:
+                    l = mid + 1
+                else:
+                    r = mid - 1
+            end = r        
+            return [start,end]
 
-        return [-1, 1]
 
 
 Solution().searchRange([5,7,7,8,8,10], 8)
