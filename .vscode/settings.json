@@ -1,0 +1,10 @@
+{
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.pycodestyleCategorySeverity.E": "Warning",
+    "editor.formatOnSave": true,
+    "python.testing.pytestEnabled": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "terminal.integrated.env.osx": {
+        "PYTHONPATH": "${workspaceFolder}"
+    }
+}
