@@ -22,5 +22,16 @@ class QuickSolution:
         return (nums[-k])
 
 
+class QuickSolutionWithHeap:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heapq.heapify(nums)
+        return (heapq.nlargest(k, nums)[k-1])
+
+
 print(Solution().findKthLargest([3, 2, 1, 5, 6, 4], 2))
 print(QuickSolution().findKthLargest([3, 2, 1, 5, 6, 4], 2))
+print(QuickSolutionWithHeap().findKthLargest([3, 2, 1, 5, 6, 4], 2))
+
+# TODO: to review
+# Comparing to list sort, heaps maintain their sorted structure with minimal computational overhead
+# when elements are dynamically added
