@@ -1,128 +1,102 @@
 
 from math import inf
-
+import heapq
 # The following two exampls are from the Grokking algorithm book
 
 
-def a_b_finish_triangle():
-    # the graph
-    graph = {}
-    graph["start"] = {}
-    graph["start"]["a"] = 6
-    graph["start"]["b"] = 2
+class ABFinish_triangle:
+    graph: dict
+    costs: dict
+    parents: dict
 
-    graph["a"] = {}
-    graph["a"]["fin"] = 1
+    def __init__(self):
+        self.graph = {}
+        self.graph["start"] = {}
+        self.graph["start"]["a"] = 6
+        self.graph["start"]["b"] = 2
 
-    graph["b"] = {}
-    graph["b"]["a"] = 3
-    graph["b"]["fin"] = 5
+        self.graph["a"] = {}
+        self.graph["a"]["fin"] = 1
 
-    graph["fin"] = {}
+        self.graph["b"] = {}
+        self.graph["b"]["a"] = 3
+        self.graph["b"]["fin"] = 5
 
-    # the costs table
-    infinity = float("inf")
-    costs = {}
-    costs["a"] = 6
-    costs["b"] = 2
-    costs["fin"] = infinity
+        self.graph["fin"] = {}
 
-    # the parents table
-    parents = {}
-    parents["a"] = "start"
-    parents["b"] = "start"
-    parents["fin"] = None
+        # the costs table
+        infinity = float("inf")
+        self.costs = {}
+        self.costs["a"] = 6
+        self.costs["b"] = 2
+        self.costs["fin"] = infinity
 
-    processed = []
+        # the parents table
+        self.parents = {}
+        self.parents["a"] = "start"
+        self.parents["b"] = "start"
+        self.parents["fin"] = None
 
-    def find_lowest_cost_node(costs, processed):
-        lowest_cost = float("inf")
-        lowest_cost_node = None
-        # Go through each node.
-        for node in costs:
-            cost = costs[node]
-            # If it's the lowest cost so far and hasn't been processed yet...
-            if cost < lowest_cost and node not in processed:
-                # ... set it as the new lowest-cost node.
-                lowest_cost = cost
-                lowest_cost_node = node
-        return lowest_cost_node
 
-    # Find the lowest-cost node that you haven't processed yet.
-    node = find_lowest_cost_node(costs, processed)
-    # If you've processed all the nodes, this while loop is done.
-    while node is not None:
+class PianoTrade:
+    graph: dict
+    costs: dict
+    parents: dict
+
+    def __init__(self):
+        self.graph = {}
+        self.graph['Books'] = {}
+        self.graph['Books']['LP'] = 5
+        self.graph["Books"]['Poster'] = 0
+
+        self.graph['LP'] = {}
+        self.graph['LP']['Drum'] = 20
+        self.graph['LP']['Guitar'] = 15
+
+        self.graph['Poster'] = {}
+        self.graph['Poster']['Guitar'] = 30
+        self.graph['Poster']['Drum'] = 35
+
+        self.graph['Guitar'] = {}
+        self.graph['Guitar']['Piano'] = 20
+
+        self.graph['Drum'] = {}
+        self.graph['Drum']['Piano'] = 10
+
+        self.graph['Piano'] = {}
+
+        # define costs
+        self.costs = {}
+        self.costs['LP'] = 5
+        self.costs['Poster'] = 0
+        self.costs['Guitar'] = inf
+        self.costs['Drum'] = inf
+        self.costs['Piano'] = inf
+
+        # the parents table
+        self.parents = {}
+        self.parents['LP'] = 'Books'
+        self.parents['Poster'] = 'Books'
+        self.parents['Guitar'] = None
+        self.parents['Drum'] = None
+        self.parents['Piano'] = None
+
+
+def least_cost_node(costs: dict, processed: set):
+    lowest_cost = inf
+    lowest_cost_node = None
+
+    for node in costs:
         cost = costs[node]
-        # Go through all the neighbors of this node.
-        neighbors = graph[node]
-        for n in neighbors.keys():
-            new_cost = cost + neighbors[n]
-            # If it's cheaper to get to this neighbor by going through this node...
-            if costs[n] > new_cost:
-                # ... update the cost for this node.
-                costs[n] = new_cost
-                # This node becomes the new parent for this neighbor.
-                parents[n] = node
-        # Mark the node as processed.
-        processed.append(node)
-        # Find the next node to process, and loop.
-        node = find_lowest_cost_node(costs, processed)
-
-    print("Cost from the start to each node:")
-    print(costs)
+        if cost < lowest_cost and node not in processed:
+            lowest_cost = cost
+            lowest_cost_node = node
+    return lowest_cost_node
 
 
-def piano_trade():
-
-    graph = {}
-    graph['Books'] = {}
-    graph['Books']['LP'] = 5
-    graph["Books"]['Poster'] = 0
-
-    graph['LP'] = {}
-    graph['LP']['Drum'] = 20
-    graph['LP']['Guitar'] = 15
-
-    graph['Poster'] = {}
-    graph['Poster']['Guitar'] = 30
-    graph['Poster']['Drum'] = 35
-
-    graph['Guitar'] = {}
-    graph['Guitar']['Piano'] = 20
-
-    graph['Drum'] = {}
-    graph['Drum']['Piano'] = 10
-
-    graph['Piano'] = {}
-
-    # define costs
-    costs = {}
-    costs['LP'] = 5
-    costs['Poster'] = 0
-    costs['Guitar'] = inf
-    costs['Drum'] = inf
-    costs['Piano'] = inf
-
-    # the parents table
-    parents = {}
-    parents['LP'] = 'Books'
-    parents['Poster'] = 'Books'
-    parents['Guitar'] = None
-    parents['Drum'] = None
-    parents['Piano'] = None
+def dijkstra_algo(graph: dict, costs: dict, parents: dict):
 
     processed = set()
-
-    def least_cost_node(costs: dict, processed: set):
-        lowest_cost = inf
-        lowest_cost_node = None
-
-        for node in costs:
-            cost = costs[node]
-            if cost < lowest_cost and node not in processed:
-                lowest_cost = cost
-                lowest_cost_node = node
-        return lowest_cost_node
 
     node = least_cost_node(costs, processed)
 
@@ -145,8 +119,41 @@ def piano_trade():
     print(costs)
 
 
-print(a_b_finish_triangle())
-print(piano_trade())
+# A-B-Finish triangle example in the book
+# print(dijkstra_algo(ABFinish_triangle().graph,
+#       ABFinish_triangle().costs, ABFinish_triangle().parents))
+
+# Piano-trade example in the book
+
+print(dijkstra_algo(PianoTrade().graph, PianoTrade().costs, PianoTrade().parents))
 
 
 #  TODO: replace the least cost node function with Heap
+def dijkstra_algo_with_min_heap(graph: dict, costs: dict, parents: dict):
+    processed = set()
+    min_heap = []
+    for key, value in costs.items():
+        if value != inf:
+            heapq.heappush(min_heap, (key, value))
+
+    while len(min_heap) != 0:
+        current_node, current_cost = heapq.heappop(min_heap)
+
+        neighbours = graph[current_node]
+
+        if current_node in processed:
+            continue
+
+        for n in neighbours:
+            new_cost = current_cost + neighbours[n]
+
+            if costs[n] > new_cost:
+                costs[n] = new_cost
+                parents[n] = current_node
+                heapq.heappush(min_heap, (n, new_cost))
+
+    return costs, parents
+
+
+print(dijkstra_algo_with_min_heap(PianoTrade().graph,
+      PianoTrade().costs, PianoTrade().parents))
