@@ -24,10 +24,11 @@ class Solution:
 
             neighbours = graph[current_node]
             if current_node == target_node:
-                return current_cost
-
-            if current_stops == k+1:
-                continue
+                # It doesn't have to use all k stops. The condition was at most k stops
+                if current_stops <= k:
+                    return current_cost
+                else:
+                    continue
 
             for n in neighbours:
                 new_cost = current_cost + neighbours[n]
