@@ -1,9 +1,10 @@
 import heapq
 from math import inf
 from typing import List
+import time
 
 
-class Solution:
+class DijkstraSolution:
     def dijkstra_algo_with_min_heap(self, graph: dict, costs: dict, stops: dict, src: int, target_node: int, k: int):
         min_heap = []
 
@@ -64,3 +65,56 @@ class Solution:
             stops[key] = inf
 
         return self.dijkstra_algo_with_min_heap(graph, costs, stops, src, dst, k)
+
+
+class BackTrackingSolutionFromLeetCode:
+
+    class Solution:
+        def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+
+            # src -> (dst, cost)
+            graph = {}
+            for edge in flights:
+                graph[edge[0]] = graph.get(edge[0], [])
+                graph[edge[0]].append((edge[1], edge[2]))
+
+            # find cheapest flight between src and dst
+            #  @cache
+            def helper(src, dst, k):
+                # print(src, dst, k)
+                if k < 0:
+                    return inf
+
+                ans = inf
+                for neighbor in graph.get(src, []):
+                    # cheapest flight between neighbor and dst + cost of src and neighbor
+                    if neighbor[0] == dst:
+                        ans = min(ans, neighbor[1])
+                    else:
+                        ans = min(ans, helper(
+                            neighbor[0], dst, k - 1) + neighbor[1])
+
+                return ans
+
+            result = helper(src, dst, k)
+            return -1 if result == inf else result
+
+
+#  Testc case
+n = 4
+flights = [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]]
+src = 0
+dst = 3
+k = 1
+
+start_time_1 = time.time()
+print(DijkstraSolution().findCheapestPrice(n, flights, 0, 3, 1))
+end_time_1 = time.time()
+
+start_time_2 = time.time()
+print(BackTrackingSolutionFromLeetCode().Solution(
+).findCheapestPrice(n, flights, 0, 3, 1))
+end_time_2 = time.time()
+
+print(
+    f"The dijkstra took {end_time_1 - start_time_1}, the backtracking took {end_time_2 - end_time_1}")
