@@ -11,13 +11,13 @@ class Solution:
         if src not in graph.keys() or target_node not in graph.keys():
             return -1
 
-        costs[src] = -1
+        costs[src] = 0
         stops[src] = -1
 
         # how python handle the tuple comparison is by digit
         # so when the cost is the same, we want heap to compare number of stops
         # that's why it's structured as (cost, stops, node)
-        heapq.heappush(min_heap, (0, 0, src))
+        heapq.heappush(min_heap, (0, -1, src))
 
         while len(min_heap) != 0:
             current_cost, current_stops, current_node = heapq.heappop(min_heap)
@@ -29,6 +29,10 @@ class Solution:
                     return current_cost
                 else:
                     continue
+            # This will just make if faster by skipping the cases that will add cases that
+            # won't fit into condition anyway
+            if current_stops == k:
+                continue
 
             for n in neighbours:
                 new_cost = current_cost + neighbours[n]
