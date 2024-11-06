@@ -66,6 +66,10 @@ class BackTrackingSolution:
             for i in range(len(candidate_list)):
                 cur = cur+candidate_list[i]
                 backtrack(cur, index+1)
+                # If the follwoing line is missing, this function will not return when it should, for example
+                # it should be backtrack("ae", 2), where it just return, but instead, it becomes ("ade", 2),
+                # and it doesn't return, but keep going to the line candidate_list = digit_map[digits[2]]
+                # which gives index error.
                 cur = cur[:-1]
 
         backtrack("", 0)
