@@ -22,4 +22,4 @@ class Solution:
         return ans
 
 
-print(Solution().combine(5, 3))
+print(Solution().combine(4, 2))
