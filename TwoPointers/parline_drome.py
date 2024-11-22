@@ -35,7 +35,63 @@ class Solution:
             # If the first and last characters don't match, it's not a palindrome
             return False
 
+    # isalnum
+    # two pointers
+    def isPalindrome(s: int) -> bool:
+        if s == '':
+            return True
 
-sol = Solution()
-sol.isPalindrome(121)
-sol.isPalindrome(-10)
+        s = s.lower()
+
+        left = 0
+        right = len(s)-1
+        s_left = ''
+        s_right = ''
+
+        while left <= len(s)-1:
+            s_left += s[left]
+            s_right += s[right]
+            left += 1
+            right -= 1
+
+        return s_left == s_right
+
+
+# Parlindrome alphanumeric
+
+class Solution2:
+
+    def isPalindrome(self, s: str) -> bool:
+        if s == '':
+            return True
+
+        s = s.lower()
+
+        s_new = []
+        for char in s:
+            if char.isalnum():
+                s_new.append(char)
+
+        left = 0
+        right = len(s_new)-1
+        s_left = ''
+        s_right = ''
+
+        while left <= len(s_new)-1:
+            s_left += s_new[left]
+            s_right += s_new[right]
+            left += 1
+            right -= 1
+
+        return s_left == s_right
+
+
+# sol = Solution()
+# sol.isPalindrome(121)
+# sol.isPalindrome(-10)
+
+
+sol2 = Solution2()
+print(sol2.isPalindrome("A man, a plan, a canal: Panama"))
+print(sol2.isPalindrome("race a car"))
+print(sol2.isPalindrome("0P"))
