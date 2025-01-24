@@ -136,8 +136,7 @@ class DFSSolution:
             if amount in memo:
                 return memo[amount]
 
-            # res is the number of coin used. The initial value could be
-            # an infinitely large number. Or any number that's larger than the amount
+            # res is the number of coin used. The initial value has to be a sufficiently large number to cover all cases
             res = math.inf
 
             for coin in coins:
