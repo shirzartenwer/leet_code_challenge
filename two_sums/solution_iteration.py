@@ -30,7 +30,12 @@ class Solution:
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         # The following line gets the index of the original list sorted (https://stackoverflow.com/questions/7851077/how-to-return-index-of-a-sorted-list)
-        get_the_sorted_index = sorted(range(len(nums)), key=lambda k: nums[k])
+
+        ele_index = {}
+        for i, ele in enumerate(nums):
+            ele_index[ele] = i
+
+        # get_the_sorted_index = sorted(range(len(nums)), key=lambda k: nums[k])
         nums.sort()
         left_pointer = 0
         right_pointer = len(nums) - 1
@@ -43,7 +48,7 @@ class Solution:
                 right_pointer -= 1
                 continue
             else:
-                return get_the_sorted_index[left_pointer], get_the_sorted_index[right_pointer]
+                return ele_index[nums[left_pointer]], ele_index[nums[right_pointer]]
 
 
 # Some other solution:
@@ -67,3 +72,14 @@ class Solution:
                 complement_dict[nums[i]] = i
 
 # TODO: Check hash_table and construct one https://www.tutorialspoint.com/python_data_structure/python_hash_table.htm
+
+
+class HashMapSolution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        prevMap = {}  # val -> index
+
+        for i, n in enumerate(nums):
+            diff = target - n
+            if diff in prevMap:
+                return [prevMap[diff], i]
+            prevMap[n] = i
