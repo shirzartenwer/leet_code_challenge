@@ -1,5 +1,15 @@
 # https://leetcode.com/problems/palindrome-number/
 
+
+class Solution:
+    # time complexity O(n)
+    # space complexity O(n)
+    def isPalindrome(self, s: str) -> bool:
+        s_striped = ''.join(char.lower() for char in s if char.isalnum())
+        s_striped_reverse = s_striped[::-1]
+        return s_striped == s_striped_reverse
+
+
 class Solution:
 
     def isPalindrome(self, x: int) -> bool:
