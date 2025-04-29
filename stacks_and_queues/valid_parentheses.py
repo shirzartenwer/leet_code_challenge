@@ -1,9 +1,9 @@
-from typing import string
 # leetcode: https://leetcode.com/problems/valid-parentheses/?envType=study-plan-v2&envId=top-interview-150
 
 
 class Solution:
-    def isValid(self, s: string) -> bool:
+    def isValid(self, s: str) -> bool:
+        # KEY: only first half of parentheses as key, closing parenthesis as value
         parentheses = {
             "(": ")",
             "[": "]",
@@ -26,3 +26,29 @@ class Solution:
             return False
 
         return True
+
+
+class MySolution:
+    def isValid(self, s: str) -> bool:
+        char_dic = {'(': ')',
+                    ')': '(',
+                    '{': '}',
+                    '}': '{',
+                    '[': ']',
+                    ']': '['}
+        length = len(s)
+
+        for i in range(length):
+            if char_dic[s[i]] == s[-(1+i)]:
+                continue
+            elif (i+1) <= length-1 and char_dic[s[i]] == s[i+1]:
+                continue
+            elif char_dic[s[i]] == s[i-1]:
+                continue
+            else:
+                return False
+        return True
+
+
+# print(MySolution().isValid("([{}])"))
+print(MySolution().isValid("()[]{}"))
