@@ -1,3 +1,4 @@
+#  https://neetcode.io/problems/trapping-rain-water
 from math import inf
 from typing import List
 
