@@ -68,7 +68,8 @@ class Solution:
 
 
 # Parlindrome alphanumeric
-
+#  This two poitner also has space complexity O(n) and time O(n)
+# if we want to save the O(n) space, we need to do better
 class Solution2:
 
     def isPalindrome(self, s: str) -> bool:
@@ -95,6 +96,28 @@ class Solution2:
 
         return s_left == s_right
 
+# Time: O(n)
+# Space: O(1)
+
+
+class TPSolution:
+    def isPalindrome(self, s: str) -> bool:
+
+        i, j = 0, len(s) - 1
+
+        while i < j:
+            while i < j and not s[i].isalnum():
+                i += 1
+            while i < j and not s[j].isalnum():
+                j -= 1
+
+            if s[i].lower() != s[j].lower():
+                return False
+
+            i += 1
+            j -= 1
+
+        return True
 
 # sol = Solution()
 # sol.isPalindrome(121)

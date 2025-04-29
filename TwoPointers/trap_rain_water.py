@@ -57,6 +57,7 @@ class PrefixSuffixSolution:
 
         trapped_water = 0
         for i in range(len(height)):
+            # The key insight is to calculate water trapped at each index
             trapped_water += min(max_left[i], max_right[i]) - height[i]
 
         return trapped_water
