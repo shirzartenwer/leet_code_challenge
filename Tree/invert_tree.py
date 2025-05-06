@@ -12,9 +12,7 @@ def invert_tree(root: TreeNode):
     if root.left == None and root.right == None:
         return root
     else:
-        holder = root.right
-        root.right = root.left
-        root.left = holder
+        root.right, root.left = root.left, root.right
         invert_tree(root.left)
         invert_tree(root.right)
     return root
