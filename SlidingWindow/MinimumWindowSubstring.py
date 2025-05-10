@@ -27,6 +27,7 @@ class Solution:
                 if r-l + 1 < min_length:
                     min_length = r-l+1
                     res = s[l:r+1]
+                # the folllowing is preparing for moving the left pointer and remove the frequency count
                 if s_counter[s[l]] > 1:
                     s_counter[s[l]] -= 1
                 else:
