@@ -94,3 +94,38 @@ print(RevisedChatGPTSolution().solve(
     [["O", "O", "O"],
      ["O", "O", "O"],
      ["O", "O", "O"]]))
+
+
+def surroundedRegion(matrix):
+    ROWS = len(matrix)
+    COLS = len(matrix[0])
+
+    directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+    def dfs(r, c, mark):
+        if r < 0 or c < 0 or r >= ROWS or c >= COLS or matrix[r][c] != "O":
+            return
+        matrix[r][c] = mark
+        if r == 0 or c == 0 or r == ROWS-1 or c == COLS-1:
+            on_edge[0] = True
+        for dr, dc in directions:
+            dfs(r+dr, c+dc)
+
+    mark = 1
+    surrounded = []
+    for r in range(ROWS):
+        for c in range(COLS):
+            if matrix[r][c] == "O":
+                on_edge = [False]
+                dfs(r, c, mark)
+                if not on_edge[0]:
+                    surrounded.append(mark)
+                mark += 1
+
+    for r in range(ROWS):
+        for c in range(COLS):
+            if matrix[r][c] != "X":
+                if matrix[r][c] in surrounded:
+                    matrix[r][c] = "X"
+                else:
+                    matrix[r][c] = "O"
